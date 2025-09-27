@@ -82,7 +82,7 @@ def get_course_category(session):
     url = "https://zhjw.smu.edu.cn/new/student/xsxk/"
     response = session.get(url, headers=headers)
     soup = BeautifulSoup(response.content, 'lxml')
-    courses = soup.find_all('div', id='bb2')
+    courses = soup.find_all('div', attrs={'data-href': True})
     print("选课类型：")
     coursedict = {}
     for idx, course_category in enumerate(courses, start=1):
@@ -207,4 +207,5 @@ async def main():
     scheduler.shutdown(wait=False)
 
 if __name__ == "__main__":
+
     asyncio.run(main())
